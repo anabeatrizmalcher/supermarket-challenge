@@ -5,7 +5,6 @@ import { generatePlans } from '../features/game/logic/plans';
 import { TEAMS, TEAM_HEX } from '../features/game/state/types';
 import { api } from '../features/match/api';
 import { refreshNow, serverNow, startMs, useMatchStore, useTick } from '../features/match/hooks';
-import ConnectionBadge from '../ui/ConnectionBadge';
 import { getPlayerId, isHost } from '../lib/player';
 
 export default function Lobby() {
@@ -43,7 +42,6 @@ export default function Lobby() {
 
   return (
     <div className="mx-auto max-w-md p-4">
-      <ConnectionBadge />
       <h1 className="text-2xl font-bold">Lobby</h1>
       <p className="mb-3 text-slate-600">Waiting for the host to start…</p>
       <ul className="space-y-2">

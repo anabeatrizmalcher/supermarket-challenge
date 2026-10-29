@@ -4,7 +4,6 @@ import { CONFIG } from '../features/game/content/config';
 import { TEAMS, TEAM_HEX } from '../features/game/state/types';
 import { api } from '../features/match/api';
 import { refreshNow, useMatchStore } from '../features/match/hooks';
-import ConnectionBadge from '../ui/ConnectionBadge';
 import { getPlayerId } from '../lib/player';
 
 export default function Join() {
@@ -38,7 +37,6 @@ export default function Join() {
 
   return (
     <div className="mx-auto max-w-md p-4">
-      <ConnectionBadge />
       <h1 className="text-center text-3xl font-extrabold">🛒 Supermarket Challenge</h1>
       <p className="mb-4 text-center text-slate-600">Pick your team!</p>
       <div className="grid grid-cols-2 gap-3">
