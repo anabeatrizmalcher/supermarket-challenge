@@ -1,0 +1,23 @@
+[
+  { "id": "rolls", "singular": "roll", "kind": "countable", "shop": "bakery", "price": 1, "icon": "🥖" },
+  { "id": "cookies", "singular": "cookie", "kind": "countable", "shop": "bakery", "price": 1, "icon": "🍪" },
+  { "id": "cupcakes", "singular": "cupcake", "kind": "countable", "shop": "bakery", "price": 3, "icon": "🧁" },
+  { "id": "bread", "singular": "bread", "kind": "uncountable", "shop": "bakery", "price": 3, "icon": "🍞" },
+  { "id": "flour", "singular": "flour", "kind": "uncountable", "shop": "bakery", "price": 2, "icon": "🌾" },
+  { "id": "apples", "singular": "apple", "kind": "countable", "shop": "market", "price": 2, "icon": "🍎" },
+  { "id": "bananas", "singular": "banana", "kind": "countable", "shop": "market", "price": 1, "icon": "🍌" },
+  { "id": "oranges", "singular": "orange", "kind": "countable", "shop": "market", "price": 2, "icon": "🍊" },
+  { "id": "carrots", "singular": "carrot", "kind": "countable", "shop": "market", "price": 1, "icon": "🥕" },
+  { "id": "eggs", "singular": "egg", "kind": "countable", "shop": "market", "price": 1, "icon": "🥚" },
+  { "id": "honey", "singular": "honey", "kind": "uncountable", "shop": "market", "price": 6, "icon": "🍯" },
+  { "id": "fish", "singular": "fish", "kind": "uncountable", "shop": "market", "price": 8, "icon": "🐟" },
+  { "id": "onions", "singular": "onion", "kind": "countable", "shop": "supermarket", "price": 1, "icon": "🧅" },
+  { "id": "milk", "singular": "milk", "kind": "uncountable", "shop": "supermarket", "price": 3, "icon": "🥛" },
+  { "id": "water", "singular": "water", "kind": "uncountable", "shop": "supermarket", "price": 1, "icon": "💧" },
+  { "id": "rice", "singular": "rice", "kind": "uncountable", "shop": "supermarket", "price": 3, "icon": "🍚" },
+  { "id": "sugar", "singular": "sugar", "kind": "uncountable", "shop": "supermarket", "price": 2, "icon": "🍬" },
+  { "id": "salt", "singular": "salt", "kind": "uncountable", "shop": "supermarket", "price": 1, "icon": "🧂" },
+  { "id": "cheese", "singular": "cheese", "kind": "uncountable", "shop": "supermarket", "price": 6, "icon": "🧀" },
+  { "id": "juice", "singular": "juice", "kind": "uncountable", "shop": "supermarket", "price": 4, "icon": "🧃" },
+  { "id": "butter", "singular": "butter", "kind": "uncountable", "shop": "supermarket", "price": 5, "icon": "🧈" }
+]

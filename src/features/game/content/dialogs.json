@@ -1,0 +1,36 @@
+{
+  "welcome": "Welcome to the {shop}!",
+  "greetSeller": "Hello! How are you today?",
+  "greet": { "player": "I ___ fine, thank you! And you?", "options": ["am", "is"], "correct": "am", "hint": "Com I usamos am." },
+  "greetAfter": "I’m great, thanks! What do you need today?",
+  "ask": {
+    "countable": { "seller": "How ___ {item} do you want?", "options": ["many", "much"], "correct": "many", "hint": "{item} dá para contar um por um, então usamos many." },
+    "uncountable": { "seller": "How ___ {item} do you want?", "options": ["much", "many"], "correct": "much", "hint": "{item} não dá para contar um por um, então usamos much." }
+  },
+  "quantityPlayer": "I would like ___ {item}.",
+  "quantityHintFew": "{item} é incontável, então não usamos a few.",
+  "listHint": "Veja a sua lista de compras.",
+  "here": "Here you are!",
+  "wrongShop": "Sorry, we don’t have {item} here!",
+  "tryShop": "Sorry! Try the {shop}.",
+  "more": "Anything else?",
+  "yes": "Yes, please.",
+  "no": "No, that’s all.",
+  "bye": [
+    { "player": "Thank you! ___!", "options": ["Goodbye", "Good morning"], "correct": "Goodbye", "hint": "Good morning é para cumprimentar, não para se despedir." },
+    { "seller": "Have a nice day! See you ___!", "options": ["tomorrow", "yesterday"], "correct": "tomorrow", "hint": "yesterday é o passado." }
+  ],
+  "extras": [
+    { "id": "day", "seller": "It is a beautiful day, isn’t it?", "player": "Yes, it ___ a beautiful day!", "options": ["is", "are"], "correct": "is", "hint": "it combina com is." },
+    { "id": "first", "seller": "Is this your first time here?", "player": "No, I ___ here every week.", "options": ["come", "comes"], "correct": "come", "hint": "Com I o verbo não leva -s." },
+    { "id": "bag", "seller": "Do you want a bag?", "player": "No, ___ you!", "options": ["thank", "thanks"], "correct": "thank", "hint": "A expressão é No, thank you." },
+    { "id": "plural", "needsCountable": true, "seller": "So you want {qtyWord} ___?", "options": ["{singular}", "{item}"], "correct": "{item}", "hint": "Mais de um, plural com -s." }
+  ],
+  "checkout": {
+    "hello": "Hello! Is that everything?",
+    "how": { "player": "How ___ is it, please?", "options": ["much", "many"], "correct": "much", "hint": "Para perguntar o preço, usamos how much." },
+    "price": { "seller": "It is R$ {total}. Do you have ___ money?", "options": ["some", "a few"], "correct": "some", "hint": "money é incontável." },
+    "paid": "Thank you! Have a nice day!",
+    "sorry": { "seller": "Sorry, you don’t have ___ money.", "options": ["much", "many"], "correct": "much", "hint": "Em frases negativas, usamos much com incontável." }
+  }
+}
