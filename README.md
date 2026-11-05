@@ -22,6 +22,23 @@ open `/?host` in one tab, and `/` in other tabs.
 2. Copy `.env.example` to `.env` and fill `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
 3. Deploy on Vercel with the same two variables. Share the link/QR code; keep the `?host` link for yourself.
 
+## Translations (Portuguese help)
+
+- The app screens (buttons, lobby, ranking) are in Portuguese; the shop dialogues are in English with a Portuguese line under each sentence.
+- The 🇧🇷 switch (top bar while playing, and on the first screen) turns the Portuguese help on/off. It starts ON and the choice is remembered on the device.
+- Where to edit: `src/features/game/content/dialogs.json` (English lines at the top, Portuguese in the `"pt"` block at the bottom, same names) and `items.json` (`pt` = Portuguese name, `g` = m/f for "quantos/quantas"). Placeholders like `{itemPt}` and `{shopPt}` are filled in automatically.
+- Phrase changes made: "Thank you! ___!" now uses Goodbye/Welcome; "No, thank ___." uses you/your; the checkout asks "Do you have enough money?" and the answer is "Yes, I ___." (do/am). Prices are spoken in words ("twenty-one reais").
+
+## Deploy (GitHub + Vercel)
+
+1. `git init && git add . && git commit -m "first version"`, create a repo on GitHub and push.
+   (`.env` is in `.gitignore`, so your keys are not uploaded.)
+2. On vercel.com: Add New > Project > import the repo. Framework is detected as Vite; build command `npm run build`, output `dist`.
+3. Before deploying, add the env vars `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (Settings > Environment Variables).
+4. Deploy. Host link: `https://your-app.vercel.app/?host`. Players use the link without `?host`.
+
+`vercel.json` makes page refreshes work on /lobby, /play and /result.
+
 ## How to play (controls)
 
 - Street: touch the left half of the screen to walk (virtual joystick), drag the right half to look.

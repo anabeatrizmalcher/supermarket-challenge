@@ -17,6 +17,7 @@ export const CONFIG = {
   countdownSeconds: 3,
   teamSize: 4,
   itemsPerTeam: 5,
+  extraChatChance: 0.6, // chance that a shop visit has one extra chat blank
   maxQty: 8,
   minNeedQty: 2,
   maxNeedQty: 6,

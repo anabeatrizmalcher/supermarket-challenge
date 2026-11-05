@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import LangToggle from '../../../ui/LangToggle';
 import { ITEMS_BY_ID } from '../content';
 import { CONFIG } from '../content/config';
 import { cartTotal } from '../logic/pricing';
@@ -15,13 +16,14 @@ export default function Hud({ state }: { state: GameState }) {
   const ss = String(left % 60).padStart(2, '0');
   return (
     <>
-      <div className="z-20 flex items-center justify-between gap-2 bg-slate-900/90 px-3 py-2 text-sm font-semibold text-white">
+      <div className="z-20 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 bg-slate-900/90 px-3 py-2 text-base font-semibold text-white">
         <span>⭐ {state.score}</span>
         <span>⏱ {mm}:{ss}</span>
         <span className={total > state.wallet ? 'text-red-300' : ''}>💰 R$ {total}/{state.wallet}</span>
-        <button onClick={() => setOpen(true)} className="rounded-lg bg-white/20 px-3 py-1">
-          🛒 List
+        <button onClick={() => setOpen(true)} className="rounded-lg bg-white/20 px-3 py-2">
+          🛒 Lista
         </button>
+        <LangToggle className="py-2" />
       </div>
       {open && <Cart state={state} onClose={() => setOpen(false)} />}
     </>

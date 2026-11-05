@@ -4,7 +4,8 @@ import Checkout from '../features/game/components/Checkout';
 import Hud from '../features/game/components/Hud';
 import ShopScene from '../features/game/components/ShopScene';
 import Street3D from '../features/game/components/Street3D';
-import { ITEMS_BY_ID } from '../features/game/content';
+import { EXTRAS, ITEMS_BY_ID, PT } from '../features/game/content';
+import Tr from '../ui/Tr';
 import { CONFIG } from '../features/game/content/config';
 import { cartTotal, listComplete } from '../features/game/logic/pricing';
 import { overspend } from '../features/game/logic/pricing';
@@ -52,7 +53,7 @@ export default function Play() {
     if (snap && outcome && isClosed(snap)) nav('/result', { replace: true });
   }, [snap, outcome, nav]);
 
-  if (!state) return <p className="p-6">Loading…</p>;
+  if (!state) return <p className="p-6">Carregando…</p>;
   const ph = state.phase;
 
   return (
@@ -65,7 +66,7 @@ export default function Play() {
           onEnter={(place) =>
             place === 'checkout'
               ? dispatch({ type: 'GO_CHECKOUT' })
-              : dispatch({ type: 'ENTER_SHOP', shop: place, extra: Math.floor(Math.random() * 4) })
+              : dispatch({ type: 'ENTER_SHOP', shop: place, extra: Math.random() < CONFIG.extraChatChance ? Math.floor(Math.random() * EXTRAS.length) : null })
           }
         />
       )}
@@ -79,17 +80,18 @@ export default function Play() {
             {ph.outcome === 'lost' && 'Sorry, you don’t have much money.'}
             {ph.outcome === 'timeout' && 'Time is up!'}
           </h1>
+          <Tr text={ph.outcome === 'paid' ? PT.checkout.paid : ph.outcome === 'lost' ? PT.checkout.sorry.seller : 'O tempo acabou!'} />
           {ph.outcome === 'lost' && (
             <div className="rounded-xl bg-red-50 p-3 text-left">
-              <p className="font-bold">You took too much:</p>
+              <p className="font-bold">Você pegou coisas demais:</p>
               {overspend(state.cart, state.needs, ITEMS_BY_ID).map((o, i) => (
-                <p key={i}>• {o.label} (R$ {o.cost} extra)</p>
+                <p key={i}>• {o.label} (R$ {o.cost} a mais)</p>
               ))}
             </div>
           )}
-          <p>Your points: <b>{ph.outcome === 'lost' ? 0 : state.score}</b></p>
-          <p className="text-slate-500">Waiting for the other teams…</p>
-          <button onClick={() => nav('/result')} className="rounded-xl bg-indigo-600 px-4 py-3 text-white">See ranking</button>
+          <p>Seus pontos: <b>{ph.outcome === 'lost' ? 0 : state.score}</b></p>
+          <p className="text-slate-500">Esperando os outros times…</p>
+          <button onClick={() => nav('/result')} className="rounded-xl bg-indigo-600 px-4 py-3 text-white">Ver o ranking</button>
         </div>
       )}
     </div>

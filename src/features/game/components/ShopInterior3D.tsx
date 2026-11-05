@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { createControls, type Pose } from '../../../lib/fpControls';
+import { useLang } from '../../../lib/lang';
+import { disposeScene } from '../../../lib/three';
 import { ITEMS, ITEMS_BY_ID, SHOP_NAMES } from '../content';
 import { CONFIG } from '../content/config';
 import type { CartLine, PlaceId } from '../state/types';
@@ -56,9 +58,12 @@ function textTexture(lines: string[], bg: string | null, fg: string, w = 256, h 
 }
 function priceTag(id: string) {
   const it = ITEMS_BY_ID[id];
-  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: textTexture([it.id, `R$ ${it.price}${it.kind === 'countable' ? ' each' : ''}`], 'rgba(255,255,255,.92)', '#0f172a', 256, 128, 38), depthTest: false }));
+  const price = `R$ ${it.price}${it.kind === 'countable' ? ' each' : ''}`;
+  const plain = textTexture([it.id, price], 'rgba(255,255,255,.92)', '#0f172a', 256, 128, 38);
+  const withPt = textTexture([it.id, it.pt, price], 'rgba(255,255,255,.92)', '#0f172a', 256, 160, 34);
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: plain, depthWrite: false }));
   s.scale.set(1.3, 0.65, 1);
-  return s;
+  return { sprite: s, plain, withPt };
 }
 
 function buildSeller(place: PlaceId) {
@@ -169,6 +174,7 @@ export default function ShopInterior3D({ place, interactive, heldId, cart, onPic
     scene.add(seller);
 
     // Tables with items (or the cart on the counter at the checkout)
+    const tags: ReturnType<typeof priceTag>[] = [];
     const targets: THREE.Object3D[] = [door];
     const tables: { x: number; z: number }[] = [];
     const clusters: THREE.Group[] = [];
@@ -184,8 +190,9 @@ export default function ShopInterior3D({ place, interactive, heldId, cart, onPic
         targets.push(cl);
         clusters.push(cl);
         const tag = priceTag(it.id);
-        tag.position.set(x, TABLE_TOP + 1.05, z);
-        scene.add(tag);
+        tag.sprite.position.set(x, TABLE_TOP + 1.05, z);
+        scene.add(tag.sprite);
+        tags.push(tag);
       });
     } else if (cart) {
       let cx = -2.9;
@@ -228,7 +235,7 @@ export default function ShopInterior3D({ place, interactive, heldId, cart, onPic
       if (!o) return;
       if (o.userData.exit) return propsRef.current.onExit?.();
       if (hit.distance > 6) {
-        setToast('Walk a little closer 🚶');
+        setToast('Chegue mais perto 🚶');
         setTimeout(() => setToast(''), 1400);
         return;
       }
@@ -278,6 +285,16 @@ export default function ShopInterior3D({ place, interactive, heldId, cart, onPic
       camera.position.set(pose.x, 1.6, pose.z);
       camera.rotation.set(pose.pitch, pose.yaw, 0);
       camera.updateMatrixWorld();
+      const wantPt = useLang.getState().showPt;
+      for (const t of tags) {
+        const m = t.sprite.material as THREE.SpriteMaterial;
+        const next = wantPt ? t.withPt : t.plain;
+        if (m.map !== next) {
+          m.map = next;
+          t.sprite.scale.set(1.3, wantPt ? 0.81 : 0.65, 1);
+          m.needsUpdate = true;
+        }
+      }
       seller.position.y = Math.sin(now / 500) * 0.015;
       held.rotation.y += dt * 1.2;
       if (picking) {
@@ -303,11 +320,7 @@ export default function ShopInterior3D({ place, interactive, heldId, cart, onPic
       ro.disconnect();
       ctl.dispose();
       setHeldRef.current = () => undefined;
-      scene.traverse((o) => {
-        const m = o as THREE.Mesh;
-        m.geometry?.dispose();
-      });
-      renderer.dispose();
+      disposeScene(scene, renderer);
       el.removeChild(renderer.domElement);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -323,7 +336,7 @@ export default function ShopInterior3D({ place, interactive, heldId, cart, onPic
       </div>
       {interactive && (
         <p className="pointer-events-none absolute left-2 top-2 rounded-lg bg-black/50 px-2 py-1 text-xs text-white">
-          Walk around and tap an item to pick it up 🖐️
+          Ande pela loja e toque num item para pegar 🖐️
         </p>
       )}
       {toast && <p className="pointer-events-none absolute left-1/2 top-12 -translate-x-1/2 rounded-xl bg-black/70 px-3 py-2 text-white">{toast}</p>}

@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 html, body, #root { height: 100%; margin: 0; }
+/* dvh excludes the mobile browser toolbar, so bottom buttons are never hidden */
+#root { height: 100dvh; overflow: auto; }
 body { font-family: system-ui, sans-serif; overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }
 button { touch-action: manipulation; }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }

@@ -29,7 +29,12 @@ export function useMatchSync() {
     api.serverOffset().then((o) => (offset = o)).catch(() => undefined);
     void refresh();
     const unsub = api.subscribe(refresh, (realtime) => useMatchStore.getState().set({ realtime }));
-    const t = setInterval(refresh, 2000);
+    let n = 0;
+    // poll every 2s, but only every 6s while real-time is connected
+    const t = setInterval(() => {
+      n++;
+      if (useMatchStore.getState().realtime !== 'SUBSCRIBED' || n % 3 === 0) void refresh();
+    }, 2000);
     return () => {
       alive = false;
       unsub();

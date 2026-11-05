@@ -1,11 +1,35 @@
 {
   "welcome": "Welcome to the {shop}!",
   "greetSeller": "Hello! How are you today?",
-  "greet": { "player": "I ___ fine, thank you! And you?", "options": ["am", "is"], "correct": "am", "hint": "Com I usamos am." },
+  "greet": {
+    "player": "I ___ fine, thank you! And you?",
+    "options": [
+      "am",
+      "is"
+    ],
+    "correct": "am",
+    "hint": "Com I usamos am."
+  },
   "greetAfter": "I’m great, thanks! What do you need today?",
   "ask": {
-    "countable": { "seller": "How ___ {item} do you want?", "options": ["many", "much"], "correct": "many", "hint": "{item} dá para contar um por um, então usamos many." },
-    "uncountable": { "seller": "How ___ {item} do you want?", "options": ["much", "many"], "correct": "much", "hint": "{item} não dá para contar um por um, então usamos much." }
+    "countable": {
+      "seller": "How ___ {item} do you want?",
+      "options": [
+        "many",
+        "much"
+      ],
+      "correct": "many",
+      "hint": "{item} dá para contar um por um, então usamos many."
+    },
+    "uncountable": {
+      "seller": "How ___ {item} do you want?",
+      "options": [
+        "much",
+        "many"
+      ],
+      "correct": "much",
+      "hint": "{item} não dá para contar um por um, então usamos much."
+    }
   },
   "quantityPlayer": "I would like ___ {item}.",
   "quantityHintFew": "{item} é incontável, então não usamos a few.",
@@ -17,20 +41,153 @@
   "yes": "Yes, please.",
   "no": "No, that’s all.",
   "bye": [
-    { "player": "Thank you! ___!", "options": ["Goodbye", "Good morning"], "correct": "Goodbye", "hint": "Good morning é para cumprimentar, não para se despedir." },
-    { "seller": "Have a nice day! See you ___!", "options": ["tomorrow", "yesterday"], "correct": "tomorrow", "hint": "yesterday é o passado." }
+    {
+      "player": "Thank you! ___!",
+      "options": [
+        "Goodbye",
+        "Welcome"
+      ],
+      "correct": "Goodbye",
+      "hint": "Welcome é para receber alguém, não para se despedir."
+    },
+    {
+      "seller": "Have a nice day! See you ___!",
+      "options": [
+        "tomorrow",
+        "yesterday"
+      ],
+      "correct": "tomorrow",
+      "hint": "yesterday é o passado."
+    }
   ],
   "extras": [
-    { "id": "day", "seller": "It is a beautiful day, isn’t it?", "player": "Yes, it ___ a beautiful day!", "options": ["is", "are"], "correct": "is", "hint": "it combina com is." },
-    { "id": "first", "seller": "Is this your first time here?", "player": "No, I ___ here every week.", "options": ["come", "comes"], "correct": "come", "hint": "Com I o verbo não leva -s." },
-    { "id": "bag", "seller": "Do you want a bag?", "player": "No, ___ you!", "options": ["thank", "thanks"], "correct": "thank", "hint": "A expressão é No, thank you." },
-    { "id": "plural", "needsCountable": true, "seller": "So you want {qtyWord} ___?", "options": ["{singular}", "{item}"], "correct": "{item}", "hint": "Mais de um, plural com -s." }
+    {
+      "id": "day",
+      "seller": "It is a beautiful day, isn’t it?",
+      "player": "Yes, it ___ a beautiful day!",
+      "options": [
+        "is",
+        "are"
+      ],
+      "correct": "is",
+      "hint": "it combina com is."
+    },
+    {
+      "id": "first",
+      "seller": "Is this your first time here?",
+      "player": "No, I ___ here every week.",
+      "options": [
+        "come",
+        "comes"
+      ],
+      "correct": "come",
+      "hint": "Com I o verbo não leva -s."
+    },
+    {
+      "id": "bag",
+      "seller": "Do you want a bag?",
+      "player": "No, thank ___.",
+      "options": [
+        "you",
+        "your"
+      ],
+      "correct": "you",
+      "hint": "A frase é No, thank you."
+    },
+    {
+      "id": "plural",
+      "needsCountable": true,
+      "seller": "So you want {qtyWord} ___?",
+      "options": [
+        "{singular}",
+        "{item}"
+      ],
+      "correct": "{item}",
+      "hint": "Mais de um, plural com -s."
+    }
   ],
   "checkout": {
     "hello": "Hello! Is that everything?",
-    "how": { "player": "How ___ is it, please?", "options": ["much", "many"], "correct": "much", "hint": "Para perguntar o preço, usamos how much." },
-    "price": { "seller": "It is R$ {total}. Do you have ___ money?", "options": ["some", "a few"], "correct": "some", "hint": "money é incontável." },
+    "how": {
+      "player": "How ___ is it, please?",
+      "options": [
+        "much",
+        "many"
+      ],
+      "correct": "much",
+      "hint": "Para perguntar o preço, usamos how much."
+    },
+    "price": {
+      "seller": "It is {totalWords} reais. Do you have enough money?",
+      "player": "Yes, I ___.",
+      "options": [
+        "do",
+        "am"
+      ],
+      "correct": "do",
+      "hint": "Respondemos com do: Yes, I do."
+    },
     "paid": "Thank you! Have a nice day!",
-    "sorry": { "seller": "Sorry, you don’t have ___ money.", "options": ["much", "many"], "correct": "much", "hint": "Em frases negativas, usamos much com incontável." }
+    "sorry": {
+      "seller": "Sorry, you don’t have ___ money.",
+      "options": [
+        "much",
+        "many"
+      ],
+      "correct": "much",
+      "hint": "Em frases negativas, usamos much com incontável."
+    }
+  },
+  "pt": {
+    "welcome": "Bem-vindo(a)! Esta é a loja: {shopPt}.",
+    "greetSeller": "Olá! Como você está hoje?",
+    "greetPlayer": "Eu estou bem, obrigado(a)! E você?",
+    "greetAfter": "Eu estou ótimo(a), obrigado(a)! O que você precisa hoje?",
+    "quantityPlayer": "Eu gostaria de ___ {itemPt}.",
+    "here": "Aqui está!",
+    "wrongShop": "Desculpe, não temos {itemPt} aqui!",
+    "tryShop": "Desculpe! Tente: {shopPt}.",
+    "more": "Mais alguma coisa?",
+    "yes": "Sim, por favor.",
+    "no": "Não, é só isso.",
+    "bye": [
+      {
+        "player": "Obrigado(a)! Tchau!"
+      },
+      {
+        "seller": "Tenha um bom dia! Até amanhã!"
+      }
+    ],
+    "extras": {
+      "day": {
+        "seller": "Está um lindo dia, não é?",
+        "player": "Sim, está um lindo dia!"
+      },
+      "first": {
+        "seller": "É a sua primeira vez aqui?",
+        "player": "Não, eu venho aqui toda semana."
+      },
+      "bag": {
+        "seller": "Você quer uma sacola?",
+        "player": "Não, obrigado(a)."
+      },
+      "plural": {
+        "seller": "Então você quer {qtyPt} {itemPt}?"
+      }
+    },
+    "checkout": {
+      "hello": "Olá! É só isso?",
+      "how": {
+        "player": "Quanto custa, por favor?"
+      },
+      "price": {
+        "seller": "Custa {total} reais. Você tem dinheiro suficiente?",
+        "player": "Sim, eu tenho."
+      },
+      "paid": "Obrigado(a)! Tenha um bom dia!",
+      "sorry": {
+        "seller": "Desculpe, você não tem muito dinheiro."
+      }
+    }
   }
 }

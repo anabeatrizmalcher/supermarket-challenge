@@ -1,16 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { shuffle } from '../../../lib/prng';
+import Tr from '../../../ui/Tr';
 
 interface Props {
   seller?: string;
   player?: string;
+  sellerPt?: string;
+  playerPt?: string;
   options: string[];
   correct: string;
   hint: string;
   onAnswer: (correct: boolean) => void;
 }
 
-function Line({ text, filled, who }: { text: string; filled: string | null; who: 'seller' | 'player' }) {
+function Line({ text, pt, filled, who }: { text: string; pt?: string; filled: string | null; who: 'seller' | 'player' }) {
   const [a, b] = text.split('___');
   const bubble = who === 'seller' ? 'bg-white self-start rounded-bl-none' : 'bg-sky-100 self-end rounded-br-none';
   return (
@@ -26,12 +29,13 @@ function Line({ text, filled, who }: { text: string; filled: string | null; who:
           {b}
         </>
       )}
+      <Tr text={pt} />
     </div>
   );
 }
 
 /** A dialogue exchange with one blank: shuffled options, hint in Portuguese on a mistake. */
-export default function BlankChoices({ seller, player, options, correct, hint, onAnswer }: Props) {
+export default function BlankChoices({ seller, player, sellerPt, playerPt, options, correct, hint, onAnswer }: Props) {
   const shuffled = useMemo(() => shuffle(options), [options.join('|')]); // eslint-disable-line
   const [wrong, setWrong] = useState<string[]>([]);
   const [done, setDone] = useState<string | null>(null);
@@ -51,8 +55,8 @@ export default function BlankChoices({ seller, player, options, correct, hint, o
 
   return (
     <div className="flex flex-col gap-2">
-      {seller && <Line text={seller} who="seller" filled={done} />}
-      {player && <Line text={player} who="player" filled={done} />}
+      {seller && <Line text={seller} pt={sellerPt} who="seller" filled={done} />}
+      {player && <Line text={player} pt={playerPt} who="player" filled={done} />}
       <div className="mt-2 grid grid-cols-2 gap-2">
         {shuffled.map((o) => (
           <button

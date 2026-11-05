@@ -144,3 +144,34 @@ describe('extra dialogs', () => {
     }
   });
 });
+
+import { DIALOGS, PT, howManyPt } from '../src/features/game/content';
+import { numberToWords } from '../src/features/game/logic/pricing';
+describe('translations', () => {
+  it('every item has a Portuguese name and gender', () => {
+    for (const it of ITEMS) {
+      expect(it.pt.length).toBeGreaterThan(1);
+      expect(['m', 'f']).toContain(it.g);
+    }
+  });
+  it('every extra chat has a translation for each line it has', () => {
+    for (const e of DIALOGS.extras) {
+      const t = (PT.extras as Record<string, { seller?: string; player?: string }>)[e.id];
+      expect(t).toBeTruthy();
+      if (e.seller) expect(t.seller).toBeTruthy();
+      if (e.player) expect(t.player).toBeTruthy();
+    }
+  });
+  it('conjugates quantos/quantas and quanto/quanta', () => {
+    const by = (id: string) => ITEMS.find((i) => i.id === id)!;
+    expect(howManyPt(by('apples'))).toBe('Quantas maçãs você quer?');
+    expect(howManyPt(by('eggs'))).toBe('Quantos ovos você quer?');
+    expect(howManyPt(by('flour'))).toBe('Quanta farinha você quer?');
+    expect(howManyPt(by('milk'))).toBe('Quanto leite você quer?');
+  });
+  it('spells prices in English', () => {
+    expect(numberToWords(21)).toBe('twenty-one');
+    expect(numberToWords(40)).toBe('forty');
+    expect(numberToWords(7)).toBe('seven');
+  });
+});

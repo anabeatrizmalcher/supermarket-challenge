@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { createControls, type Pose } from '../../../lib/fpControls';
+import { disposeScene } from '../../../lib/three';
 import { PLACES, STREET } from '../content/places';
-import { SHOP_NAMES } from '../content';
+import { SHOP_NAMES, SHOP_PT } from '../content';
 import type { PlaceId } from '../state/types';
 
 interface Props {
@@ -177,11 +178,7 @@ export default function Street3D({ checkoutReady, spawn, onEnter }: Props) {
       cancelAnimationFrame(raf);
       ro.disconnect();
       ctl.dispose();
-      renderer.dispose();
-      scene.traverse((o) => {
-        const m = o as THREE.Mesh;
-        m.geometry?.dispose();
-      });
+      disposeScene(scene, renderer);
       el.removeChild(renderer.domElement);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -196,7 +193,7 @@ export default function Street3D({ checkoutReady, spawn, onEnter }: Props) {
       </div>
       <canvas ref={mini} width={70} height={170} className="pointer-events-none absolute right-2 top-2 rounded-lg" />
       <p className="pointer-events-none absolute left-2 top-2 rounded-lg bg-black/50 px-2 py-1 text-xs text-white">
-        Left side: walk · Right side: look · (PC: WASD + mouse)
+        Lado esquerdo: andar · Lado direito: olhar · (PC: WASD + mouse)
       </p>
       {near && (
         <button
@@ -204,7 +201,7 @@ export default function Street3D({ checkoutReady, spawn, onEnter }: Props) {
           onClick={() => onEnter(near)}
           className={`absolute bottom-6 left-1/2 -translate-x-1/2 rounded-2xl px-6 py-4 text-xl font-bold text-white shadow-lg ${locked ? 'bg-slate-500' : 'bg-indigo-600 active:scale-95'}`}
         >
-          {locked ? '🔒 Finish your list first' : `🚪 Enter ${near === 'checkout' ? 'Checkout' : SHOP_NAMES[near]}`}
+          {locked ? '🔒 Termine a lista primeiro' : `🚪 Entrar: ${near === 'checkout' ? 'Checkout (caixa)' : `${SHOP_NAMES[near]} (${SHOP_PT[near]})`}`}
         </button>
       )}
     </div>

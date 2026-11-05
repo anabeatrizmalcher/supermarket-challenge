@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CONFIG } from '../features/game/content/config';
 import { generatePlans } from '../features/game/logic/plans';
-import { TEAMS, TEAM_HEX } from '../features/game/state/types';
+import { TEAMS, TEAM_HEX, TEAM_PT, TEAM_TEXT } from '../features/game/state/types';
 import { api } from '../features/match/api';
 import { refreshNow, serverNow, startMs, useMatchStore, useTick } from '../features/match/hooks';
+import ConnectionBadge from '../ui/ConnectionBadge';
 import { getPlayerId, isHost } from '../lib/player';
 
 export default function Lobby() {
@@ -25,7 +26,7 @@ export default function Lobby() {
     if (st === 'lobby' && !mine && !host) nav('/', { replace: true });
   });
 
-  if (!snap) return <p className="p-6">Loading…</p>;
+  if (!snap) return <p className="p-6">Carregando…</p>;
 
   const start = async () => {
     const seed = Math.floor(Math.random() * 2 ** 31);
@@ -42,25 +43,30 @@ export default function Lobby() {
 
   return (
     <div className="mx-auto max-w-md p-4">
+      <ConnectionBadge />
       <h1 className="text-2xl font-bold">Lobby</h1>
-      <p className="mb-3 text-slate-600">Waiting for the host to start…</p>
+      <p className="mb-3 text-slate-600">Aguardando o professor(a) começar…</p>
       <ul className="space-y-2">
         {TEAMS.map((t) => {
           const n = snap.players.filter((p) => p.team === t).length;
           return (
-            <li key={t} className="flex items-center justify-between rounded-xl px-4 py-3 text-white" style={{ background: TEAM_HEX[t] }}>
-              <span className="font-bold capitalize">{t} {mine?.team === t && '(you)'}</span>
+            <li key={t} className="flex items-center justify-between rounded-xl px-4 py-3 text-white" style={{ background: TEAM_HEX[t], color: TEAM_TEXT[t] }}>
+              <span className="font-bold capitalize">{t} <span className="text-sm font-normal opacity-90">({TEAM_PT[t]})</span> {mine?.team === t && '(você)'}</span>
               <span>{n}/{CONFIG.teamSize}</span>
             </li>
           );
         })}
       </ul>
-      {mine && st === 'lobby' && <button onClick={() => nav('/')} className="mt-3 w-full rounded-xl bg-slate-200 py-3">Change team</button>}
+      {mine && st === 'lobby' && <button onClick={() => nav('/')} className="mt-3 w-full rounded-xl bg-slate-200 py-3">Trocar de time</button>}
       {host && (
         <div className="mt-4 flex flex-col gap-2 rounded-xl border-2 border-dashed p-3">
-          <p className="text-sm font-bold">Host</p>
-          <button disabled={st !== 'lobby' || snap.players.length === 0} onClick={start} className="rounded-xl bg-green-600 py-3 font-bold text-white disabled:opacity-40">▶ Start</button>
-          <button onClick={async () => { await api.newMatch(); await refreshNow(); }} className="rounded-xl bg-red-600 py-3 font-bold text-white">New match (clears everything)</button>
+          <p className="text-sm font-bold">Professor(a) / Host</p>
+          <button disabled={st !== 'lobby' || snap.players.length === 0} onClick={start} className="rounded-xl bg-green-600 py-3 font-bold text-white disabled:opacity-40">▶ Começar</button>
+          <button onClick={async () => {
+              if (!confirm('Começar uma NOVA partida? Isso apaga a partida atual para todos os alunos.')) return;
+              await api.newMatch();
+              await refreshNow();
+            }} className="rounded-xl bg-red-600 py-3 font-bold text-white">Nova partida (apaga tudo)</button>
         </div>
       )}
     </div>

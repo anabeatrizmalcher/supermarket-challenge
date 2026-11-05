@@ -8,6 +8,13 @@ export const TEAM_HEX: Record<TeamColor, string> = {
   purple: '#a855f7',
   orange: '#f97316',
 };
+export const TEAM_PT: Record<TeamColor, string> = {
+  red: 'vermelho', blue: 'azul', green: 'verde', yellow: 'amarelo', purple: 'roxo', orange: 'laranja',
+};
+// Dark text on the yellow team: white on yellow is hard to read
+export const TEAM_TEXT: Record<TeamColor, string> = {
+  red: '#fff', blue: '#fff', green: '#fff', yellow: '#111827', purple: '#fff', orange: '#fff',
+};
 export type ShopId = 'bakery' | 'market' | 'supermarket';
 export type PlaceId = ShopId | 'checkout';
 export type Portion = 'a little' | 'some' | 'a lot of';
@@ -20,6 +27,8 @@ export interface Item {
   shop: ShopId;
   price: number;
   icon: string;
+  pt: string; // Portuguese name
+  g: 'm' | 'f'; // grammatical gender, for "quantos/quantas"
 }
 
 export type Need =
