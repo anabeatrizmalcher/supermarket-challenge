@@ -29,6 +29,12 @@ open `/?host` in one tab, and `/` in other tabs.
 - Where to edit: `src/features/game/content/dialogs.json` (English lines at the top, Portuguese in the `"pt"` block at the bottom, same names) and `items.json` (`pt` = Portuguese name, `g` = m/f for "quantos/quantas"). Placeholders like `{itemPt}` and `{shopPt}` are filled in automatically.
 - Phrase changes made: "Thank you! ___!" now uses Goodbye/Welcome; "No, thank ___." uses you/your; the checkout asks "Do you have enough money?" and the answer is "Yes, I ___." (do/am). Prices are spoken in words ("twenty-one reais").
 
+## "Are you sure?" check
+
+When a player takes an item that is not on their list, or one they already have in the cart, the game asks
+"Tem certeza? (Are you sure?)" before adding it (`logic/pick.ts`). Each player still has their own cart and wallet,
+so a teammate taking the same item does not affect you.
+
 ## Deploy (GitHub + Vercel)
 
 1. `git init && git add . && git commit -m "first version"`, create a repo on GitHub and push.

@@ -175,3 +175,17 @@ describe('translations', () => {
     expect(numberToWords(7)).toBe('seven');
   });
 });
+
+import { pickWarning } from '../src/features/game/logic/pick';
+describe('pickWarning', () => {
+  const list: Need[] = [{ itemId: 'apples', kind: 'countable', qty: 3 }];
+  it('asks before taking something that is not on the list', () => {
+    expect(pickWarning(list, [], 'cupcakes')).toBe('notInList');
+  });
+  it('asks before taking something already in the cart', () => {
+    expect(pickWarning(list, [{ itemId: 'apples', amount: 3 }], 'apples')).toBe('already');
+  });
+  it('does not ask for a listed item not yet taken', () => {
+    expect(pickWarning(list, [], 'apples')).toBeNull();
+  });
+});
